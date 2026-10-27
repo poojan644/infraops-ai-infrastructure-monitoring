@@ -14,34 +14,7 @@ The project uses a virtualized Microsoft environment and a PowerShell-based anal
 
 ## Architecture
 
-
-flowchart TD
-    A["Windows Infrastructure Lab<br/>Windows Server 2022 · Windows 11"] --> B["Active Directory · DNS · DHCP<br/>File Server · Domain Client"]
-
-    B --> C["PowerShell Automation<br/>Inventory · Health Checks · Event Logs"]
-
-    C --> D["Local Monitoring Data<br/>CSV · Windows Event Logs"]
-
-    D --> E["Incident Dataset<br/>InfraOps-Incidents.json"]
-
-    E --> F["PowerShell Incident Analysis<br/>Rule-Based Scoring & Recommendations"]
-
-    F --> G["Analysis Outputs<br/>Text Report · CSV"]
-
-    G --> H["Power BI Dashboard<br/>Incident KPIs · Priority Scores · Recommendations"]
-
-    I["KQL Query Templates"] -. "Future integration" .-> J["Azure Monitor / Log Analytics<br/>Not deployed"]
-
-    classDef infra fill:#DCEBFA,stroke:#3677B8,color:#16324F
-    classDef analysis fill:#DDF3E4,stroke:#37865A,color:#17472B
-    classDef output fill:#FBE8CE,stroke:#C98228,color:#633C0B
-    classDef future fill:#EEEEEE,stroke:#888888,color:#333333
-
-    class A,B infra
-    class C,D,E,F analysis
-    class G,H output
-    class I,J future
-
+![InfraOps Architecture Overview](dashboard/InfraOps-Architecture.png)
 
 1. **Infrastructure:** Windows Server 2022, Active Directory Domain Services, DNS, DHCP, a Windows file server, and a Windows 11 domain-joined client.
 2. **Automation:** PowerShell scripts for Active Directory inventory, disabled-account reporting, and server health checks.
