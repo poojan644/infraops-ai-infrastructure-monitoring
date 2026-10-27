@@ -1,33 +1,39 @@
 # InfraOps: AI-Powered Microsoft Infrastructure Monitoring
 
-A portfolio project demonstrating Microsoft infrastructure administration, PowerShell automation, Windows event-log analysis, rule-based incident assessment, and Power BI reporting.
+A hands-on infrastructure operations lab combining Windows Server administration, PowerShell automation, event-log analysis, rule-based incident assessment, and Power BI reporting.
 
-## Project Overview
+![Power BI Dashboard](dashboard/screenshots/InfraOps-Dashboard.png)
 
-InfraOps is a local infrastructure monitoring and incident-analysis prototype built using a virtualized Windows environment. It collects selected Windows event logs, summarizes infrastructure findings, assigns incident priorities using predefined rules, and presents the results in a Power BI dashboard.
+## Overview
+
+**InfraOps** is a local proof-of-concept designed to demonstrate how IT teams can collect infrastructure health information, investigate Windows events, prioritize incidents, and communicate findings through a dashboard.
+
+The project uses a virtualized Microsoft environment and a PowerShell-based analysis engine to process a sample incident dataset and produce recommendations.
+
+> **Project status:** Local prototype. Azure Monitor and Log Analytics integration is planned but not deployed. The current analysis uses predefined rules rather than a generative AI model.
 
 ## Architecture
 
-1. **Infrastructure Layer:** Windows Server 2022, Active Directory Domain Services, DNS, DHCP, Windows 11 client, and file server.
-2. **Automation Layer:** PowerShell scripts for user inventory, disabled-account reporting, and server health snapshots.
-3. **Monitoring Layer:** Windows event-log exports and incident summaries for domain controller, file server, and client workstation.
-4. **Incident Analysis Layer:** PowerShell-based rule engine that scores known findings and generates recommendations.
-5. **Visualization Layer:** Power BI dashboard showing incident counts, priority scores, affected servers, and recommendations.
+1. **Infrastructure:** Windows Server 2022, Active Directory Domain Services, DNS, DHCP, a Windows file server, and a Windows 11 domain-joined client.
+2. **Automation:** PowerShell scripts for Active Directory inventory, disabled-account reporting, and server health checks.
+3. **Monitoring:** Windows event-log exports and a baseline summary across three lab systems.
+4. **Incident analysis:** Rule-based incident scoring and recommendations for DNS, time synchronization, and domain-join findings.
+5. **Visualization:** Power BI report with incident counts, priority scores, affected servers, and recommended actions.
 
 ## Technology Stack
 
-- Windows Server 2022
-- Windows 11
+- Windows Server 2022 and Windows 11
 - Active Directory Domain Services
 - DNS and DHCP
 - PowerShell
-- Windows Event Viewer / `Get-WinEvent`
+- Windows Event Viewer and `Get-WinEvent`
 - Power BI Desktop
-- KQL query templates for a potential Azure Monitor / Log Analytics integration
+- Kusto Query Language (KQL) templates for potential Azure Monitor / Log Analytics investigations
+- VMware Workstation
 
-## Current Prototype Findings
+## Sample Results
 
-The sample analysis contains three documented findings:
+The current sample dataset contains three documented findings:
 
 | Incident | System | Category | Priority |
 |---|---|---|---|
@@ -35,48 +41,58 @@ The sample analysis contains three documented findings:
 | INC-002 | DC01 | Time Synchronization | Medium |
 | INC-003 | FILE01 | Domain Join | Medium |
 
-The current sample reports three incidents across two servers and zero high-priority incidents. These values describe the sample dataset, not a live production environment.
+The dashboard summarizes **3 sample incidents across 2 servers**, with **0 incidents classified as High priority** by the current analysis.
+
+These are prototype results, not live production monitoring data.
 
 ## Repository Structure
 
 ```text
-infraops-ai-infrastructure-monitoring/
+.
 ├── README.md
 ├── scripts/
-│   ├── Get-ADUserInventory.ps1
-│   ├── Get-DisabledAccounts.ps1
-│   ├── Get-DC01HealthCheck.ps1
-│   ├── Get-FILE01HealthCheck.ps1
-│   └── InfraOps-AI-Analysis.ps1
+│   ├── InfraOps-AI-Analysis.ps1
+│   └── InfraOps-IncidentScoring.ps1
 ├── data/
 │   └── sample/
 │       └── InfraOps-Incidents.json
 ├── queries/
 │   └── kql/
+│       ├── InfraOps-TopEvents.kql
+│       ├── InfraOps-SeveritySummary.kql
+│       ├── InfraOps-DNS-TimeInvestigation.kql
+│       ├── InfraOps-ServerComparison.kql
+│       └── InfraOps-EventTimeline.kql
 ├── reports/
 │   └── documentation/
+│       ├── InfraOps-Monitoring-Baseline.txt
+│       ├── InfraOps-Incident-Analysis.txt
+│       ├── InfraOps-AI-Incident-Assessment.txt
+│       └── InfraOps-Incident-Scoring.txt
 └── dashboard/
+    ├── InfraOps-Monitoring-Dashboard.pbix
     └── screenshots/
+        └── InfraOps-Dashboard.png
 ```
 
-*The folder structure will be populated as project files are reviewed and added.*
+*The file tree illustrates the intended layout. Confirm the exact filenames in GitHub and adjust this list if your uploaded names differ.*
 
-## Important Limitations
+## How to Explore the Project
 
-- Incident analysis currently uses predefined PowerShell rules; it is not a generative AI model.
-- The prototype uses local Windows event-log exports and sample incident data.
-- Azure Monitor and Log Analytics integration is not currently deployed.
-- KQL files are templates and have not been validated against a live Log Analytics workspace.
-- The findings are intended for demonstration and learning, not production incident response.
+1. Review `reports/documentation/InfraOps-Monitoring-Baseline.txt` for the monitoring baseline.
+2. Review `data/sample/InfraOps-Incidents.json` for the sample incident records.
+3. Explore `scripts/InfraOps-AI-Analysis.ps1` to understand the rule-based analysis and recommendation logic.
+4. Browse `queries/kql/` for query templates.
+5. View `dashboard/screenshots/InfraOps-Dashboard.png` or open the Power BI `.pbix` file in Power BI Desktop.
 
-## Future Enhancements
+## Limitations and Future Work
 
-- Integrate Azure Monitor and Log Analytics when an appropriate environment is available.
-- Validate and execute KQL queries against ingested event data.
-- Improve incident scoring with configurable severity, frequency, and recency rules.
-- Expand Power BI visuals and add automated report refresh.
-- Add CI checks for PowerShell scripts and repository structure.
+- Incident assessment currently uses predefined PowerShell rules; it is not generative AI.
+- The prototype processes local sample data rather than a live monitoring stream.
+- KQL templates have not been validated against a live Log Analytics workspace.
+- Azure Monitor integration, automated refresh, and advanced anomaly detection remain future enhancements.
+- The incident scoring model can be refined with configurable weights and more validation scenarios.
 
 ## Disclaimer
 
-This project is for educational and portfolio purposes. Sample data and findings are illustrative. Do not upload credentials, access tokens, private keys, or sensitive infrastructure logs.
+This repository is intended for educational and portfolio use. The sample results are illustrative and should not be treated as production incident-response guidance. No credentials or sensitive infrastructure logs should be committed to the repository.
