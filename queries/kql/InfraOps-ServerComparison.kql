@@ -1,0 +1,8 @@
+WindowsEvent
+| where TimeGenerated > ago(7d)
+| where Level in (2, 3)
+| summarize TotalIssues = count(),
+            Errors = countif(Level == 2),
+            Warnings = countif(Level == 3)
+    by Computer
+| sort by TotalIssues desc

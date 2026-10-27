@@ -1,0 +1,6 @@
+WindowsEvent
+| where TimeGenerated > ago(7d)
+| where Level in (2, 3)
+| summarize EventCount = count() by Computer, EventID, Provider
+| sort by EventCount desc
+| take 10

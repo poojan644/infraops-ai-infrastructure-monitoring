@@ -1,0 +1,5 @@
+WindowsEvent
+| where TimeGenerated > ago(7d)
+| where EventID in (1014, 134, 12)
+| project TimeGenerated, Computer, EventID, Provider, Level, RenderedDescription
+| sort by TimeGenerated desc
