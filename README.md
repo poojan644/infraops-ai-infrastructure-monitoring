@@ -2,7 +2,14 @@
 
 A hands-on infrastructure operations lab combining Windows Server administration, PowerShell automation, event-log analysis, rule-based incident assessment, and Power BI reporting.
 
-![Power BI Dashboard](dashboard/screenshots/InfraOps-Dashboard.png)
+## Dashboard Preview
+
+![InfraOps Power BI Dashboard](dashboard/screenshots/InfraOps-Dashboard.png)
+
+## Architecture
+
+![InfraOps Architecture Overview](dashboard/screenshots/InfraOps%20Architecture%20Workflow.png)
+
 
 ## Overview
 
@@ -13,8 +20,6 @@ The project uses a virtualized Microsoft environment and a PowerShell-based anal
 > **Project status:** Local prototype. Azure Monitor and Log Analytics integration is planned but not deployed. The current analysis uses predefined rules rather than a generative AI model.
 
 ## Architecture
-
-![InfraOps Architecture Overview](dashboard/screenshots/InfraOps%20Architecture%20Workflow.png)
 
 1. **Infrastructure:** Windows Server 2022, Active Directory Domain Services, DNS, DHCP, a Windows file server, and a Windows 11 domain-joined client.
 2. **Automation:** PowerShell scripts for Active Directory inventory, disabled-account reporting, and server health checks.
@@ -53,26 +58,15 @@ These are prototype results, not live production monitoring data.
 .
 ├── README.md
 ├── scripts/
-│   ├── InfraOps-AI-Analysis.ps1
-│   └── InfraOps-IncidentScoring.ps1
 ├── data/
 │   └── sample/
-│       └── InfraOps-Incidents.json
 ├── queries/
 │   └── kql/
-│       ├── InfraOps-TopEvents.kql
-│       ├── InfraOps-SeveritySummary.kql
-│       ├── InfraOps-DNS-TimeInvestigation.kql
-│       ├── InfraOps-ServerComparison.kql
-│       └── InfraOps-EventTimeline.kql
 ├── reports/
 │   └── documentation/
-│       ├── InfraOps-Monitoring-Baseline.txt
-│       ├── InfraOps-Incident-Analysis.txt
-│       ├── InfraOps-AI-Incident-Assessment.txt
-│       └── InfraOps-Incident-Scoring.txt
 └── dashboard/
     ├── InfraOps-Monitoring-Dashboard.pbix
+    ├── InfraOps-Architecture.png
     └── screenshots/
         └── InfraOps-Dashboard.png
 ```
