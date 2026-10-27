@@ -1,0 +1,29 @@
+InfraOps - Monitoring Baseline
+Period: Last 7 days
+Source: Windows System event logs
+
+DC01
+Warnings: 41
+Errors: 8
+Total: 49
+
+FILE01
+Warnings: 33
+Errors: 7
+Total: 40
+
+CLIENT01
+Warnings: 43
+Errors: 7
+Total: 50
+
+Combined event records: 139
+
+Key findings:
+- DNS Client Event ID 1014 appeared frequently on DC01 and FILE01.
+- Windows Time warnings appeared on DC01 and FILE01.
+- FILE01 had historical NetJoin Event ID 4097 errors.
+- FILE01 remains joined to infraops.local.
+- DC01 DNS lookups succeeded when explicitly queried through 127.0.0.1.
+- DC01 time source reports Local CMOS Clock.
+- Azure Log Analytics has not been deployed; KQL files are query templates only.
