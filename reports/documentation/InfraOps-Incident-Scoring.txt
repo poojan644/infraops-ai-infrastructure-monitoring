@@ -1,0 +1,54 @@
+# InfraOps — Incident Scoring Model
+
+## Purpose
+
+Prioritize Windows infrastructure findings using observable evidence. This is a rule-based prototype, not a trained AI model.
+
+## Scoring criteria
+
+| Criterion | Score | Meaning |
+|---|---:|---|
+| Severity | 1–5 | 1 = informational concern; 5 = critical service or security impact |
+| Frequency | 1–5 | 1 = isolated; 5 = repeatedly observed |
+| Recency | 1–5 | 1 = old event; 5 = very recent event |
+| Validation | 1–5 | 1 = unverified hypothesis; 5 = reproduced and confirmed |
+
+**Prototype formula:**
+
+Priority Score = (Severity × 0.40) + (Frequency × 0.25) + (Recency × 0.20) + (Validation × 0.15)
+
+The result ranges from 1.0 to 5.0. Higher scores indicate that a finding deserves earlier investigation. This score is a triage aid, not a probability of failure.
+
+## Initial triage examples
+
+### Finding A — DNS lookup timeout
+- Severity: 2
+- Frequency: 3 (recurring event group observed in the export)
+- Recency: 2 (historical event)
+- Validation: 4 (event observed and direct IPv4 DNS lookups succeeded)
+- Score: 2.65
+- Action: Monitor for recurrence; investigate only if timeouts persist.
+
+### Finding B — Windows Time source
+- Severity: 3
+- Frequency: 4 (multiple time-service warnings observed)
+- Recency: 2 (historical evidence)
+- Validation: 3 (source and configuration checked, upstream synchronization not confirmed)
+- Score: 3.10
+- Action: Review time-source configuration and peer state.
+
+### Finding C — Historical FILE01 domain-join failures
+- Severity: 2
+- Frequency: 2 (three historical records)
+- Recency: 1 (older events)
+- Validation: 4 (historical errors observed; current domain membership confirmed)
+- Score: 2.20
+- Action: No immediate repair; monitor for current authentication issues.
+
+## Limitations
+
+- Scores are manually assigned for this prototype.
+- Frequency scores should be normalized against a consistent observation window.
+- A real implementation should distinguish event records from unique incidents.
+- AI-generated recommendations must cite the event evidence and preserve uncertainty.
+- No remediation should run automatically without an appropriate approval process.
