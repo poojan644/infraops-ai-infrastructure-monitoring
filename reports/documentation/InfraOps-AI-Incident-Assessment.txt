@@ -1,0 +1,53 @@
+# InfraOps — AI Incident Assessment
+
+**Assessment type:** Evidence-based incident triage  
+**Environment:** `infraops.local` lab  
+**Data source:** Windows System event logs and manual validation  
+**Status:** Preliminary assessment; root causes are not confirmed
+
+## 1. DNS lookup timeout
+
+- **Server:** DC01
+- **Event ID:** 1014
+- **Observed evidence:** A historical DNS lookup for `wpad` timed out on October 12, 2026.
+- **Validation:** Queries for `DC01.infraops.local` and `infraops.local` succeeded when sent directly to `127.0.0.1`.
+- **Assessment:** The local DNS service is responding over IPv4. The historical WPAD timeout may have been an isolated lookup issue, but recurrence has not been established.
+- **Confidence:** High in the observed event; low in the underlying cause.
+- **Recommended action:** Monitor for repeated Event ID 1014 entries and inspect the affected query names before changing DNS configuration.
+
+## 2. Windows Time synchronization
+
+- **Server:** DC01
+- **Observed evidence:** The Windows Time service is running. The reported source is `Local CMOS Clock`; the configured type is `NT5DS`, and one peer was pending.
+- **Assessment:** Synchronization with an upstream time source has not been demonstrated.
+- **Confidence:** High in the reported configuration; moderate that upstream synchronization is currently unavailable.
+- **Recommended action:** Review the domain time hierarchy and peer status. Avoid changing time settings until the intended time source for this isolated lab is decided.
+
+## 3. Historical domain-join failures
+
+- **Server:** FILE01
+- **Event ID:** 4097
+- **Observed evidence:** Three historical join attempts failed on October 10, 2026, with error codes 1332 and 1326.
+- **Validation:** FILE01 currently reports that it is joined to `infraops.local`.
+- **Assessment:** These records indicate past join failures, not a confirmed current domain-membership problem.
+- **Confidence:** High that the historical errors occurred; low regarding their exact cause.
+- **Recommended action:** No immediate repair is indicated. Investigate further only if current domain authentication or Group Policy problems recur.
+
+## 4. Monitoring baseline
+
+| Server | Warnings | Errors | Total records |
+|---|---:|---:|---:|
+| DC01 | 41 | 8 | 49 |
+| FILE01 | 33 | 7 | 40 |
+| CLIENT01 | 43 | 7 | 50 |
+| **Combined** | **117** | **22** | **139** |
+
+These counts represent exported event records, not necessarily unique incidents.
+
+## 5. Limitations and next actions
+
+- The assessment is based on event records and manual checks, not a deployed AI model.
+- Root causes remain hypotheses until supported by further evidence.
+- Azure Log Analytics ingestion has not been configured.
+- KQL files are saved templates and have not been executed against live Azure data.
+- Next: build a repeatable incident-scoring method using severity, frequency, recency, and validation status, then test it against the collected findings.
