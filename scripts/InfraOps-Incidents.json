@@ -1,0 +1,37 @@
+
+{
+  "project": "InfraOps",
+  "environment": "infraops.local",
+  "incidents": [
+    {
+      "id": "INC-001",
+      "server": "DC01",
+      "category": "DNS",
+      "event_id": 1014,
+      "severity": "Warning",
+      "frequency": 11,
+      "finding": "A historical WPAD DNS lookup timed out.",
+      "validation": "Direct IPv4 DNS lookups for DC01.infraops.local and infraops.local succeeded."
+    },
+    {
+      "id": "INC-002",
+      "server": "DC01",
+      "category": "Time Synchronization",
+      "event_id": 134,
+      "severity": "Warning",
+      "frequency": 9,
+      "finding": "Windows Time warnings were present in the exported event data.",
+      "validation": "The service is running, but the reported source is Local CMOS Clock."
+    },
+    {
+      "id": "INC-003",
+      "server": "FILE01",
+      "category": "Domain Join",
+      "event_id": 4097,
+      "severity": "Error",
+      "frequency": 3,
+      "finding": "Historical domain-join attempts failed with error codes 1332 and 1326.",
+      "validation": "FILE01 currently reports that it is joined to infraops.local."
+    }
+  ]
+}
