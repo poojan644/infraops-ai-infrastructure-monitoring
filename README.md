@@ -14,7 +14,7 @@ The project uses a virtualized Microsoft environment and a PowerShell-based anal
 
 ## Architecture
 
-![InfraOps Architecture Overview](dashboard/InfraOps-Architecture.png)
+![InfraOps Architecture Overview](dashboard/screenshots/InfraOps%20Architecture%20Workflow.png)
 
 1. **Infrastructure:** Windows Server 2022, Active Directory Domain Services, DNS, DHCP, a Windows file server, and a Windows 11 domain-joined client.
 2. **Automation:** PowerShell scripts for Active Directory inventory, disabled-account reporting, and server health checks.
