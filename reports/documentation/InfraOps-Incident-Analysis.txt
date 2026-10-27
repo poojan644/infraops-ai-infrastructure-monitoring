@@ -1,0 +1,34 @@
+InfraOps - Incident Investigation Report
+
+1. DNS Client Warning
+Server: DC01
+Event ID: 1014
+Finding: A historical WPAD DNS lookup timed out.
+Validation: DC01.infraops.local and infraops.local both resolved to 192.168.153.10 when queried through 127.0.0.1.
+Status: Local IPv4 DNS resolution works; the cause of the historical WPAD timeout is unconfirmed.
+
+2. Windows Time
+Server: DC01
+Finding: W32Time is running, but the reported source is Local CMOS Clock.
+Configuration: NT5DS; one peer was shown as Pending.
+Status: Upstream time synchronization has not been confirmed.
+
+3. File Server Domain Join
+Server: FILE01
+Event ID: 4097
+Finding: Three historical domain-join failures on October 10, 2026, with error codes 1332 and 1326.
+Validation: FILE01 is currently joined to infraops.local.
+Status: Historical errors; current domain membership is intact.
+
+4. Monitoring Baseline
+DC01: 41 warnings, 8 errors.
+FILE01: 33 warnings, 7 errors.
+CLIENT01: 43 warnings, 7 errors.
+Combined: 139 warning/error event records.
+
+5. Limitations
+- Findings are based on exported Windows System events.
+- Event records do not necessarily represent unique incidents.
+- Azure Log Analytics ingestion has not been configured.
+- KQL files are templates and have not been executed against live Azure data.
+- Root causes have not been confirmed for the historical warnings.
